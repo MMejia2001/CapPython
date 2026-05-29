@@ -1,32 +1,23 @@
-from lab_orm.crud import (
-    add_item_to_order,
-    create_order,
-    create_user,
-    list_orders_for_user,
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from lab_fastapi.db import engine
+from lab_fastapi.models import Base
+from lab_fastapi.routers import auth, orders
+
+app = FastAPI(title="Lab FastAPI Orders")
+
+# CORS básico (para front local)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-from lab_orm.db import SessionLocal, engine
-from lab_orm.models import Base
 
+# Crear tablas (para el lab; en real usarías Alembic)
+Base.metadata.create_all(bind=engine)
 
-def main() -> None:
-    # Crear tablas (solo demo; en real usarás Alembic)
-    Base.metadata.create_all(bind=engine)
-
-    db = SessionLocal()
-    try:
-        user = create_user(db, "marco@example.com", "Marco")
-        order = create_order(db, user)
-
-        add_item_to_order(db, order, "A1", "Mouse", 250.0, 1)
-        add_item_to_order(db, order, "B2", "Teclado", 500.0, 2)
-
-        orders = list_orders_for_user(db, user)
-        print("Órdenes del usuario:", len(orders))
-        print("Items de la primera orden:", len(orders[0].items))
-
-    finally:
-        db.close()
-
-
-if __name__ == "__main__":
-    main()
+app.include_router(auth.router)
+app.include_router(orders.router)

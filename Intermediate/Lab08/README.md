@@ -14,4 +14,4 @@ poetry run pre-commit run --all-files --config .pre-commit-config.yaml
 ## Ejecutar solo este lab
 Desde la raíz del repositorio:
 
-poetry -C Intermediate/Lab08 run pre-commit run --all-files --config Intermediate/Lab08/.pre-commit-config.yaml
+poetry -C Intermediate/Lab09 run pre-commit run --all-files --config Intermediate/Lab09/.pre-commit-config.yaml
