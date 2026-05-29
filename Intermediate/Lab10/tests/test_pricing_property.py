@@ -1,7 +1,6 @@
 import pytest
 from hypothesis import given
 from hypothesis import strategies as st
-
 from lab_tdd.pricing import Item, subtotal
 
 # strategy: lista de items válidos

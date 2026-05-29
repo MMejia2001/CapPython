@@ -11,4 +11,9 @@ poetry install
 poetry run isort .
 poetry run black .
 poetry run ruff check . --fix
-poetry run pre-commit run --all-files
+poetry run pre-commit run --all-files --config .pre-commit-config.yaml
+
+## Ejecutar solo este lab
+Desde la raíz del repositorio:
+
+poetry -C Fundamental/Lab01 run pre-commit run --all-files --config Fundamental/Lab01/.pre-commit-config.yaml

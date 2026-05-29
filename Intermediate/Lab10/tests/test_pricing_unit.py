@@ -1,7 +1,6 @@
 from unittest.mock import Mock
 
 import pytest
-
 from lab_tdd.pricing import Item, discount_amount, order_total, shipping_cost, subtotal
 
 

@@ -16,7 +16,9 @@ def retry(
     """
 
     def decorator(func):
-        def wrapper(*args, **kwargs): #Cualquier cantidad de argumentos posicionales y con nombre
+        def wrapper(
+            *args, **kwargs
+        ):  # Cualquier cantidad de argumentos posicionales y con nombre
             delay = initial_delay
             attempt = 1
 
@@ -29,8 +31,7 @@ def retry(
                         raise
 
                     print(
-                        f"Intento {attempt} falló: {e}. "
-                        f"Reintentando en {delay:.2f}s..."
+                        f"Intento {attempt} falló: {e}. Reintentando en {delay:.2f}s..."
                     )
                     time.sleep(delay)
 

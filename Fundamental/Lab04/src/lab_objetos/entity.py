@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import Iterable
 
 
-@dataclass(frozen=True)  #crea init automático, inmutable
+@dataclass(frozen=True)  # crea init automático, inmutable
 class OrderItem:
     """Item de una orden."""
 

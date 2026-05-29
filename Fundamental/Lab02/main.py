@@ -1,9 +1,9 @@
-import json  #Convierte texto Json a objetos Python
-import re  #Regula expresiones-Se usa para buscar patrones en strings
-import sys  #Lee argumentos y salida del programa con codigo
+import json  # Convierte texto Json a objetos Python
+import re  # Regula expresiones-Se usa para buscar patrones en strings
+import sys  # Lee argumentos y salida del programa con codigo
 
 
-def read_json_file(path): #Esta funcion cumple el manejo robusto de errores
+def read_json_file(path):  # Esta funcion cumple el manejo robusto de errores
     try:
         with open(path, "r", encoding="utf-8") as f:
             text = f.read()
@@ -15,19 +15,19 @@ def read_json_file(path): #Esta funcion cumple el manejo robusto de errores
         sys.exit(2)
 
     try:
-        data = json.loads(text) #convierte el string a estructuras Python
-    except json.JSONDecodeError as e: #Si el Json está mal formado cae aqui
+        data = json.loads(text)  # convierte el string a estructuras Python
+    except json.JSONDecodeError as e:  # Si el Json está mal formado cae aqui
         print(f"JSON inválido. Línea {e.lineno}, columna {e.colno}: {e.msg}")
         sys.exit(3)
 
-    if not isinstance(data, list): #Asegura que data sea lista
+    if not isinstance(data, list):  # Asegura que data sea lista
         print("El JSON debe ser una LISTA de objetos.")
         sys.exit(3)
 
     return data
 
 
-def is_valid_record(item): #Verifica si un registro tiene la estructura mínima
+def is_valid_record(item):  # Verifica si un registro tiene la estructura mínima
     match item:
         case {
             "name": str(),
@@ -41,7 +41,7 @@ def is_valid_record(item): #Verifica si un registro tiene la estructura mínima
             return False
 
 
-#Toma la liosta de registros y aplica filtros opcionales
+# Toma la liosta de registros y aplica filtros opcionales
 def filter_records(records, active_only, role, email_domain, name_regex):
     filtered = []
 
@@ -70,12 +70,12 @@ def filter_records(records, active_only, role, email_domain, name_regex):
         if name_re and not name_re.search(item["name"]):
             continue
 
-        filtered.append(item) #Si pasó todos los filtros se guarda
+        filtered.append(item)  # Si pasó todos los filtros se guarda
 
     return filtered
 
 
-def aggregate(records): #Agrega datos: conteos y sumas
+def aggregate(records):  # Agrega datos: conteos y sumas
     total = len(records)
     active = 0
     amount_sum = 0.0
@@ -158,10 +158,12 @@ def main():
         elif a.startswith("name="):
             name_regex = a.split("=", 1)[1]
 
-    records = read_json_file(path)  #Lee
-    filtered = filter_records(records, active_only, role, email_domain, name_regex)  #Filtra
-    summary = aggregate(filtered)  #Agrega
-    print_report(summary)  #Muestra
+    records = read_json_file(path)  # Lee
+    filtered = filter_records(
+        records, active_only, role, email_domain, name_regex
+    )  # Filtra
+    summary = aggregate(filtered)  # Agrega
+    print_report(summary)  # Muestra
 
 
 if __name__ == "__main__":

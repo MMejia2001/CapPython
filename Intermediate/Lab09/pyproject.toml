@@ -3,7 +3,7 @@ name = "lab-orm"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "MarcoM3j14",email = "marcomejia2001@gmail.com"}
+    {name = "MMejia2001",email = "marco.mejia@axity.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
